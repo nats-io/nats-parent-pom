@@ -60,7 +60,9 @@
         </mailingList>
     </mailingLists>
 
-    <prerequisites />
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
 
     <modules />
 
@@ -94,6 +96,7 @@
         <guava-version>19.0</guava-version>
         <junit-version>4.11</junit-version>
         <logback-version>1.1.3</logback-version>
+        <maven.min-version>3.0.4</maven.min-version>
         <mockito-version>2.0.31-beta</mockito-version>
         <protobuf-java-version>3.0.0-beta-2</protobuf-java-version>
         <slf4j-version>1.7.5</slf4j-version>
@@ -104,6 +107,7 @@
         <maven-antrun-plugin-version>1.8</maven-antrun-plugin-version>
         <build-helper-maven-plugin-version>1.9.1</build-helper-maven-plugin-version>
         <maven-checkstyle-plugin-version>2.17</maven-checkstyle-plugin-version>
+        <maven-clean-plugin-version>3.0.0</maven-clean-plugin-version>
         <maven-compiler-plugin-version>3.5.1</maven-compiler-plugin-version>
         <coveralls-maven-plugin-version>2.2.0</coveralls-maven-plugin-version>
         <maven-dependency-plugin-version>2.10</maven-dependency-plugin-version>
@@ -112,18 +116,21 @@
         <maven-failsafe-plugin-version>${maven-surefire-plugin-version}</maven-failsafe-plugin-version>
         <maven-findbugs-plugin-version>3.0.3</maven-findbugs-plugin-version>
         <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
+        <maven-install-plugin-version>2.5.2</maven-install-plugin-version>
         <jacoco-maven-plugin-version>0.7.5.201505241946</jacoco-maven-plugin-version>
+        <maven-jar-plugin-version>2.6</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>2.10.3</maven-javadoc-plugin-version>
         <maven-jxr-plugin-version>2.5</maven-jxr-plugin-version>
         <os-maven-plugin>1.4.0.Final</os-maven-plugin>
         <maven-project-info-reports-plugin-version>2.9</maven-project-info-reports-plugin-version>
         <protobuf-maven-plugin-version>0.5.0</protobuf-maven-plugin-version>
         <maven-release-plugin-version>2.5.3</maven-release-plugin-version>
+        <maven-resources-plugin-version>2.7</maven-resources-plugin-version>
         <maven-scm-publish-plugin-version>1.1</maven-scm-publish-plugin-version>
         <maven-site-plugin-version>3.4</maven-site-plugin-version>
         <maven-source-plugin-version>2.4</maven-source-plugin-version>
         <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
-        <nexus-staging-maven-plugin>1.6.3</nexus-staging-maven-plugin>
+        <nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>
 
         <!-- ************** -->
         <!-- Build settings -->
@@ -145,6 +152,16 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin-version}</version>
                     <dependencies>
@@ -161,7 +178,13 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -178,6 +201,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven-deploy-plugin-version}</version>
                 </plugin>
@@ -185,12 +213,66 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${maven-enforcer-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-default</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>[${maven.min-version},)</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>enforce-clean</id>
+                            <phase>pre-clean</phase>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>[${maven.min-version},)</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>enforce-site</id>
+                            <phase>pre-site</phase>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>[${maven.min-version},)</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>${maven-gpg-plugin-version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin-version}</version>
+                </plugin>
+
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
@@ -208,38 +290,43 @@
                             </configuration>
                         </execution>
                         <execution>
-                            <id>default-report</id>
-                            <phase>prepare-package</phase>
+                            <id>pre-unit-test</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Sets the path to the file which contains 
+                                    the execution data. -->
+                                <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                                <!-- Sets the name of the property containing 
+                                    the settings for JaCoCo runtime agent. -->
+                                <propertyName>surefireArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                        <!-- Ensures that the code coverage report for unit 
+                            tests is created after unit tests have been run. -->
+                        <execution>
+                            <id>post-unit-test</id>
+                            <phase>test</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
-                        </execution>
-                        <execution>
-                            <id>default-check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
                             <configuration>
-                                <rules>
-                                    <!-- implementation is needed only for 
-                                        Maven 2 -->
-                                    <rule
-                                        implementation="org.jacoco.maven.RuleConfiguration">
-                                        <element>BUNDLE</element>
-                                        <limits>
-                                            <!-- implementation is needed 
-                                                only for Maven 2 -->
-                                            <limit
-                                                implementation="org.jacoco.report.check.Limit">
-                                                <counter>COMPLEXITY</counter>
-                                                <value>COVEREDRATIO</value>
-                                                <minimum>0.60</minimum>
-                                            </limit>
-                                        </limits>
-                                    </rule>
-                                </rules>
+                                <!-- Sets the path to the file which contains 
+                                    the execution data. -->
+                                <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                                <!-- Sets the output directory for the code 
+                                    coverage report. -->
+                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
                             </configuration>
                         </execution>
+                        <!-- <execution> <id>default-report</id> <phase>prepare-package</phase> 
+                            <goals> <goal>report</goal> </goals> </execution> <execution> <id>default-check</id> 
+                            <goals> <goal>check</goal> </goals> <configuration> <rules> <rule implementation="org.jacoco.maven.RuleConfiguration"> 
+                            <element>BUNDLE</element> <limits> <limit implementation="org.jacoco.report.check.Limit"> 
+                            <counter>COMPLEXITY</counter> <value>COVEREDRATIO</value> <minimum>0.60</minimum> 
+                            </limit> </limits> </rule> </rules> </configuration> </execution> -->
+
                     </executions>
                 </plugin>
                 <plugin>
@@ -302,6 +389,11 @@
                         <pushChanges>false</pushChanges>
                         <goals>deploy</goals>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -386,6 +478,24 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <!-- standard plugins for NATS maven builds -->
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -406,12 +516,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
