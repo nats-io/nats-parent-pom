@@ -120,6 +120,7 @@
         <jacoco-maven-plugin-version>0.7.5.201505241946</jacoco-maven-plugin-version>
         <maven-jar-plugin-version>2.6</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>2.10.3</maven-javadoc-plugin-version>
+        <jdepend-maven-plugin-version>2.0</jdepend-maven-plugin-version>
         <maven-jxr-plugin-version>2.5</maven-jxr-plugin-version>
         <os-maven-plugin>1.4.0.Final</os-maven-plugin>
         <maven-project-info-reports-plugin-version>2.9</maven-project-info-reports-plugin-version>
@@ -127,7 +128,7 @@
         <maven-release-plugin-version>2.5.3</maven-release-plugin-version>
         <maven-resources-plugin-version>2.7</maven-resources-plugin-version>
         <maven-scm-publish-plugin-version>1.1</maven-scm-publish-plugin-version>
-        <maven-site-plugin-version>3.4</maven-site-plugin-version>
+        <maven-site-plugin-version>3.5.1</maven-site-plugin-version>
         <maven-source-plugin-version>2.4</maven-source-plugin-version>
         <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
         <nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>
@@ -362,6 +363,11 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jdepend-maven-plugin</artifactId>
+                    <version>${jdepend-maven-plugin-version}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
                     <version>${maven-jxr-plugin-version}</version>
@@ -414,12 +420,34 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>${maven-site-plugin-version}</version>
                     <configuration>
+                        <!-- Reports that will be displayed on a generated 
+                            site -->
                         <reportPlugins>
+                            <!-- Produces a cross-reference of the project's 
+                                sources. This is useful for other reports like PMD or Checkstyle. When this 
+                                plugin is used with checkstyle you can see code that produces style warning/error 
+                                in the report. -->
                             <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-jxr-plugin</artifactId>
+                                <version>${maven-jxr-plugin-version}</version>
+                                <configuration>
+                                    <aggregate>true</aggregate>
+                                </configuration>
+                            </plugin>
+                            <!-- Checks projects code conventions -->
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-checkstyle-plugin</artifactId>
+                                <version>${maven-checkstyle-plugin-version}</version>
                                 <configuration>
                                     <configLocation>${checkstyle.file.path}</configLocation>
                                 </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>jdepend-maven-plugin</artifactId>
+                                <version>${jdepend-maven-plugin-version}</version>
                             </plugin>
                         </reportPlugins>
                     </configuration>
@@ -537,9 +565,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin-version}</version>
-                <configuration>
-                    <configLocation>${checkstyle.file.path}</configLocation>
-                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -547,11 +572,6 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>${maven-jxr-plugin-version}</version>
             </plugin>
         </plugins>
     </reporting>
