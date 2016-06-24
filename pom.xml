@@ -479,7 +479,9 @@
                                 <goal>test</goal>
                             </goals>
                             <configuration>
+                        <!-- don't put an argLine here, this will break jacoco
                                 <argLine>${surefireArgLine}</argLine>
+                                -->
                             </configuration>
                         </execution>
                     </executions>
