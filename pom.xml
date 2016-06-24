@@ -486,7 +486,9 @@
                     <configuration>
                         <!-- Sets the VM argument line used when unit tests 
                             are run. -->
+                        <!-- don't put an argLine here, this will break jacoco
                         <argLine>${surefireArgLine}</argLine>
+                        -->
                         <!-- Skips unit tests if the value of skip.unit.tests 
                             property is true -->
                         <!-- <skipTests>${skip.unit.tests}</skipTests> -->
