@@ -98,7 +98,7 @@
         <logback-version>1.1.3</logback-version>
         <maven.min-version>3.0.4</maven.min-version>
         <mockito-version>2.0.31-beta</mockito-version>
-        <protobuf-java-version>3.0.0-beta-2</protobuf-java-version>
+        <protobuf-java-version>3.0.0</protobuf-java-version>
         <slf4j-version>1.7.5</slf4j-version>
 
         <!-- **************** -->
@@ -199,6 +199,7 @@
                     <version>${coveralls-maven-plugin-version}</version>
                     <configuration>
                         <jacocoFile>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoFile>
+                        <jacocoReports>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReports>
                         <sourceEncoding>${project.reporting.sourceEncoding}</sourceEncoding>
                     </configuration>
                 </plugin>
@@ -378,11 +379,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${maven-project-info-reports-plugin-version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.google.protobuf</groupId>
-                    <artifactId>protobuf-java</artifactId>
-                    <version>${protobuf-java-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
