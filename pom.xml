@@ -117,7 +117,7 @@
         <maven-findbugs-plugin-version>3.0.3</maven-findbugs-plugin-version>
         <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
         <maven-install-plugin-version>2.5.2</maven-install-plugin-version>
-        <jacoco-maven-plugin-version>0.7.5.201505241946</jacoco-maven-plugin-version>
+        <jacoco-maven-plugin-version>0.7.7.201606060606</jacoco-maven-plugin-version>
         <maven-jar-plugin-version>2.6</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>2.10.3</maven-javadoc-plugin-version>
         <jdepend-maven-plugin-version>2.0</jdepend-maven-plugin-version>
@@ -197,11 +197,6 @@
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>${coveralls-maven-plugin-version}</version>
-                    <configuration>
-                        <jacocoFile>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoFile>
-                        <jacocoReports>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReports>
-                        <sourceEncoding>${project.reporting.sourceEncoding}</sourceEncoding>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -277,62 +272,7 @@
                     <version>${maven-jar-plugin-version}</version>
                 </plugin>
 
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco-maven-plugin-version}</version>
-                    <executions>
-                        <execution>
-                            <id>default-prepare-agent</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                            <configuration>
-                                <!-- Sets the name of the property containing 
-                                    the settings for JaCoCo runtime agent. -->
-                                <propertyName>surefireArgLine</propertyName>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>pre-unit-test</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                            <configuration>
-                                <!-- Sets the path to the file which contains 
-                                    the execution data. -->
-                                <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-                                <!-- Sets the name of the property containing 
-                                    the settings for JaCoCo runtime agent. -->
-                                <propertyName>surefireArgLine</propertyName>
-                            </configuration>
-                        </execution>
-                        <!-- Ensures that the code coverage report for unit 
-                            tests is created after unit tests have been run. -->
-                        <execution>
-                            <id>post-unit-test</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                            <configuration>
-                                <!-- Sets the path to the file which contains 
-                                    the execution data. -->
-                                <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-                                <!-- Sets the output directory for the code 
-                                    coverage report. -->
-                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-                            </configuration>
-                        </execution>
-                        <!-- <execution> <id>default-report</id> <phase>prepare-package</phase> 
-                            <goals> <goal>report</goal> </goals> </execution> <execution> <id>default-check</id> 
-                            <goals> <goal>check</goal> </goals> <configuration> <rules> <rule implementation="org.jacoco.maven.RuleConfiguration"> 
-                            <element>BUNDLE</element> <limits> <limit implementation="org.jacoco.report.check.Limit"> 
-                            <counter>COMPLEXITY</counter> <value>COVEREDRATIO</value> <minimum>0.60</minimum> 
-                            </limit> </limits> </rule> </rules> </configuration> </execution> -->
 
-                    </executions>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -463,58 +403,34 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin-version}</version>
-                    <executions>
-                        <execution>
-                            <id>default-test</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                        <!-- don't put an argLine here, this will break jacoco
-                                <argLine>${surefireArgLine}</argLine>
-                                -->
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <!-- Sets the VM argument line used when unit tests 
-                            are run. -->
-                        <!-- don't put an argLine here, this will break jacoco
-                        <argLine>${surefireArgLine}</argLine>
-                        -->
-                        <!-- Skips unit tests if the value of skip.unit.tests 
-                            property is true -->
-                        <!-- <skipTests>${skip.unit.tests}</skipTests> -->
-                        <skipTests>${skipTests}</skipTests>
-                        <!-- Excludes integration tests when unit tests are 
-                            run. -->
-                        <excludes>
-                            <exclude>**/IT*.java</exclude>
-                        </excludes>
-                        <!-- Includes specific categories when unit tests 
-                            are run. -->
-                        <!-- <groups>io.nats.client.UnitTest</groups> -->
-                    </configuration>
-                </plugin>
+
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
                     <version>${nexus-staging-maven-plugin}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin-version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
         <!-- standard plugins for NATS maven builds -->
         <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -577,5 +493,5 @@
             </plugin>
         </plugins>
     </reporting>
-
+    <profiles/>
 </project>
