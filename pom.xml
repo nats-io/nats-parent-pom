@@ -349,7 +349,7 @@
                             ${project.artifactId}:${project.version}</checkinComment>
                         <content>${project.reporting.outputDirectory}/apidocs</content>
                         <skipDeletedFiles>true</skipDeletedFiles>
-                        <pubScmUrl>scm:git:https://github.com/nats-io/${project.artifactId}.git</pubScmUrl>
+                        <pubScmUrl>scm:git:https://${GITHUB_TOKEN}@github.com/nats-io/${project.artifactId}.git</pubScmUrl>
                         <scmBranch>gh-pages</scmBranch> <!-- branch with static site -->
                     </configuration>
                 </plugin>
