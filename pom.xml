@@ -513,44 +513,16 @@
             <id>nats-release</id>
             <build>
                 <plugins>
-                    <!-- Create a source-release artifact that contains the 
-                        fully buildable project directory source structure. This should be released 
-                        to the Maven repository for each JBoss project release. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>${version.assembly.plugin}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.codehaus.plexus</groupId>
-                                <artifactId>plexus-archiver</artifactId>
-                                <version>${version.plexus.archiver}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.codehaus.plexus</groupId>
-                                <artifactId>plexus-io</artifactId>
-                                <version>${version.plexus.io}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.apache.apache.resources</groupId>
-                                <artifactId>apache-source-release-assembly-descriptor</artifactId>
-                                <version>1.0.6</version>
-                            </dependency>
-                        </dependencies>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin-version}</version>
                         <executions>
                             <execution>
-                                <id>source-release-assembly</id>
-                                <phase>package</phase>
+                                <id>attach-sources</id>
                                 <goals>
-                                    <goal>single</goal>
+                                    <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                                    <descriptorRefs>
-                                        <descriptorRef>${sourceReleaseAssemblyDescriptor}</descriptorRef>
-                                    </descriptorRefs>
-                                    <tarLongFileMode>gnu</tarLongFileMode>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
