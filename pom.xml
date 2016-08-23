@@ -137,6 +137,7 @@
             older don't work on JDK9 -->
         <version.plexus.archiver>3.3</version.plexus.archiver>
         <version.plexus.io>2.7.1</version.plexus.io>
+        <version.assembly.plugin>2.6</version.assembly.plugin>
 
         <!-- ************** -->
         <!-- Build settings -->
