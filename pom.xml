@@ -133,6 +133,11 @@
         <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
         <nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>
 
+        <!-- we override plexus Archiver with version newer than 3.0.3 as 
+            older don't work on JDK9 -->
+        <version.plexus.archiver>3.3</version.plexus.archiver>
+        <version.plexus.io>2.7.1</version.plexus.io>
+
         <!-- ************** -->
         <!-- Build settings -->
         <!-- ************** -->
