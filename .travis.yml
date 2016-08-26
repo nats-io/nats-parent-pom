@@ -1,0 +1,40 @@
+language: java
+jdk:
+- oraclejdk8
+before_install:
+- echo "MAVEN_OPTS='-Xmx2g -XX:+TieredCompilation -XX:TieredStopAtLevel=1'" > ~/.mavenrc
+install:
+- sudo apt-get install -y gnupg2
+script:
+- mvn --settings .travis/settings.xml clean verify -U
+after_success:
+before_deploy:
+- echo "decrypting keyrings"
+- openssl aes-256-cbc -K $encrypted_a39f37773641_key -iv $encrypted_a39f37773641_iv
+  -in .travis/keyrings/secrets.tar.enc -out .travis/keyrings/secrets.tar -d
+- cd .travis/keyrings && tar xvf secrets.tar
+- cd ${TRAVIS_BUILD_DIR}
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: ".travis/deploy.sh"
+  on:
+    repo: nats-io/nats-parent-pom
+    branch: master
+    jdk: oraclejdk8
+- provider: script
+  skip_cleanup: true
+  script: ".travis/deploy.sh"
+  on:
+    repo: nats-io/nats-parent-pom
+    tags: true
+    jdk: oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2"
+notifications:
+  email:
+  - larry@apcera.com
+env:
+  global:
+  - GPG_DIR=${TRAVIS_BUILD_DIR}/.travis/keyrings
