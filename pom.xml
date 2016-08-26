@@ -2,7 +2,8 @@
     and the accompanying materials are made available under the terms of the 
     MIT License (MIT) which accompanies this distribution, and is available at 
     http://opensource.org/licenses/MIT -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -104,6 +105,7 @@
         <!-- **************** -->
         <maven-antrun-plugin-version>1.8</maven-antrun-plugin-version>
         <build-helper-maven-plugin-version>1.12</build-helper-maven-plugin-version>
+        <maven-bundle-plugin-version>3.2.0</maven-bundle-plugin-version>
         <maven-checkstyle-plugin-version>2.17</maven-checkstyle-plugin-version>
         <maven-clean-plugin-version>3.0.0</maven-clean-plugin-version>
         <maven-compiler-plugin-version>3.5.1</maven-compiler-plugin-version>
@@ -170,6 +172,14 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>${build-helper-maven-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <!-- This plugin takes care of packaging the artifact 
+                        as an OSGi Bundle -->
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <extensions>true</extensions>
+                    <version>${maven-bundle-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
