@@ -6,7 +6,7 @@ before_install:
 install:
 - sudo apt-get install -y gnupg2
 script:
-- mvn --settings .travis/settings.xml clean verify -U
+- mvn --settings .travis/settings.xml clean verify
 after_success:
 before_deploy:
 - echo "decrypting keyrings"
