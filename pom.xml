@@ -608,7 +608,7 @@
         <!-- The following profiles substitute the right values for NATS 
             os/arch identifiers -->
         <profile>
-            <id>arch-amd64</id>
+            <id>arch-x86_64</id>
             <activation>
                 <os>
                     <arch>x86_64</arch>
@@ -618,6 +618,18 @@
                 <nats.arch>amd64</nats.arch>
             </properties>
         </profile>
+        <profile>
+            <id>arch-amd64</id>
+            <activation>
+                <os>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <nats.arch>amd64</nats.arch>
+            </properties>
+        </profile>
+        
         <profile>
             <id>arch-386</id>
             <activation>
@@ -655,7 +667,7 @@
             <id>os-linux</id>
             <activation>
                 <os>
-                    <name>linux</name>
+                    <family>linux</family>
                 </os>
             </activation>
             <properties>
