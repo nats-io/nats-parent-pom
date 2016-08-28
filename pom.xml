@@ -619,10 +619,11 @@
             </properties>
         </profile>
         <profile>
-            <id>arch-amd64</id>
+            <id>linux-amd64</id>
             <activation>
                 <os>
-                    <arch>amd64</arch>
+                    <name>linux</name>
+                    <arch>x86_64</arch>
                 </os>
             </activation>
             <properties>
