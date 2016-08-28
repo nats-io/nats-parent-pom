@@ -605,6 +605,62 @@
                 <javadoc.additional.params>-Xdoclint:none</javadoc.additional.params>
             </properties>
         </profile>
-
+        <!-- The following profiles substitute the right values for NATS 
+            os/arch identifiers -->
+        <profile>
+            <id>arch-amd64</id>
+            <activation>
+                <os>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <nats.arch>amd64</nats.arch>
+            </properties>
+        </profile>
+        <profile>
+            <id>arch-386</id>
+            <activation>
+                <os>
+                    <arch>x86</arch>
+                </os>
+            </activation>
+            <properties>
+                <nats.arch>386</nats.arch>
+            </properties>
+        </profile>
+        <profile>
+            <id>os-mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <nats.os>darwin</nats.os>
+            </properties>
+        </profile>
+        <profile>
+            <id>os-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <nats.os>windows</nats.os>
+            </properties>
+        </profile>
+        <profile>
+            <id>os-linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <nats.os>linux</nats.os>
+            </properties>
+        </profile>
     </profiles>
 </project>
