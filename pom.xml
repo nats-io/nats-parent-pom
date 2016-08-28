@@ -100,8 +100,6 @@
         <protobuf-java-version>3.0.0</protobuf-java-version>
         <slf4j-version>1.7.21</slf4j-version>
 
-        <jnats-version>0.5.1</jnats-version>
-
         <!-- **************** -->
         <!-- Plugins versions -->
         <!-- **************** -->
@@ -168,11 +166,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.nats</groupId>
-                <artifactId>jnats</artifactId>
-                <version>${jnats-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
