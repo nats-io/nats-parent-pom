@@ -2,7 +2,8 @@
     and the accompanying materials are made available under the terms of the 
     MIT License (MIT) which accompanies this distribution, and is available at 
     http://opensource.org/licenses/MIT -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -151,7 +152,8 @@
         <project.reporting.sourceEncoding>UTF-8</project.reporting.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <checkstyle.file.path>src/main/resources/nats_checkstyle.xml</checkstyle.file.path>
+        <!-- maven-checkstyle-plugin -->
+        <checkstyle.config.location>checks/nats_checkstyle.xml</checkstyle.config.location>
 
         <!-- maven-release-plugin -->
         <useReleaseProfile>false</useReleaseProfile>
@@ -246,10 +248,6 @@
                             <version>${checkstyle-version}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <configLocation>${checkstyle.file.path}</configLocation>
-                        <failOnViolation>false</failOnViolation>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -461,9 +459,6 @@
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-checkstyle-plugin</artifactId>
                                 <version>${maven-checkstyle-plugin-version}</version>
-                                <configuration>
-                                    <configLocation>${checkstyle.file.path}</configLocation>
-                                </configuration>
                             </plugin>
                             <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
@@ -518,6 +513,21 @@
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle-version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <failOnViolation>false</failOnViolation>
+                </configuration>
+            </plugin>
+
         </plugins>
 
         <extensions>
@@ -535,22 +545,6 @@
         </resources>
     </build>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin-version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
     <profiles>
 
         <!-- The profile nats-release must be active when a project is released. 
@@ -629,7 +623,7 @@
                 <nats.arch>amd64</nats.arch>
             </properties>
         </profile>
-        
+
         <profile>
             <id>arch-386</id>
             <activation>
