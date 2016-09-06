@@ -130,6 +130,7 @@
         <maven-release-plugin-version>2.5.3</maven-release-plugin-version>
         <maven-resources-plugin-version>3.0.1</maven-resources-plugin-version>
         <maven-scm-publish-plugin-version>1.1</maven-scm-publish-plugin-version>
+        <maven-shade-plugin-version>2.4.3</maven-shade-plugin-version>
         <maven-site-plugin-version>3.5.1</maven-site-plugin-version>
         <maven-source-plugin-version>3.0.1</maven-source-plugin-version>
         <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
@@ -440,6 +441,11 @@
                         <pubScmUrl>scm:git:https://${GITHUB_TOKEN}@github.com/nats-io/${project.artifactId}.git</pubScmUrl>
                         <scmBranch>gh-pages</scmBranch> <!-- branch with static site -->
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
