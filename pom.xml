@@ -2,7 +2,8 @@
     and the accompanying materials are made available under the terms of the 
     MIT License (MIT) which accompanies this distribution, and is available at 
     http://opensource.org/licenses/MIT -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -133,6 +134,7 @@
         <maven-source-plugin-version>3.0.1</maven-source-plugin-version>
         <maven-surefire-plugin-version>2.19.1</maven-surefire-plugin-version>
         <nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>
+        <versioneye-maven-plugin-version>3.10.2</versioneye-maven-plugin-version>
 
         <!-- we override plexus Archiver with version newer than 3.0.3 as 
             older don't work on JDK9 -->
@@ -174,7 +176,7 @@
                 <version>${protobuf-java-version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google</groupId>
+                <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson-version}</version>
             </dependency>
@@ -502,7 +504,11 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin-version}</version>
                 </plugin>
-
+                <plugin>
+                    <groupId>com.versioneye</groupId>
+                    <artifactId>versioneye-maven-plugin</artifactId>
+                    <version>${versioneye-maven-plugin-version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
