@@ -527,15 +527,6 @@
         <!-- standard plugins for NATS maven builds -->
         <plugins>
             <plugin>
-                <groupId>com.versioneye</groupId>
-                <artifactId>versioneye-maven-plugin</artifactId>
-                <version>${versioneye-maven-plugin-version}</version>
-                <configuration>
-                    <projectId>57c0801f968d64004d9760c3</projectId>
-                    <apiKey>${VERSIONEYE_API_KEY}</apiKey>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
