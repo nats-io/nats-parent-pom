@@ -13,7 +13,7 @@
 
     <groupId>io.nats</groupId>
     <artifactId>nats-parent</artifactId>
-    <version>1.13-SNAPSHOT</version>
+    <version>1.13</version>
     <packaging>pom</packaging>
 
     <name>NATS Parent POM</name>
@@ -68,7 +68,7 @@
         <connection>scm:git:git@github.com:nats-io/nats-parent-pom.git</connection>
         <developerConnection>scm:git:git@github.com:nats-io/nats-parent-pom.git</developerConnection>
         <url>http://github.com/nats-io/nats-parent-pom</url>
-        <tag>nats-parent-1.1</tag>
+        <tag>1.13</tag>
     </scm>
     <issueManagement />
     <ciManagement />
